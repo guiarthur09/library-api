@@ -1,10 +1,18 @@
 from pydantic import BaseModel
 
-class LivroCreate(BaseModel):
-    titulo: str
-    autor: str
+class BookCreate(BaseModel):
+    title: str
+    author: str
+    publisher: str
+    location: str
+    year: int
+    pages: int
 
-class Livro(BaseModel):
+class Book(BaseModel):
     id: int
-    titulo: str
-    autor: str
+    title: str
+    author: str
+    publisher: str
+    location: str
+    year: int
+    pages: int
