@@ -77,3 +77,12 @@ def atualizar_livro(id: int, livro_atualizado: LivroCreate):
             return livro
 
     raise HTTPException(status_code=404, detail="404 Not Found")
+
+@app.delete("/books/{id}")
+def deletar_livro(id: int):
+    for index, livro in enumerate(livros):
+        if livro["id"] == id:
+            del livros[index]
+            return {"deleted": f"ID: {livro['id']} | Name: {livro['titulo']} | Autor: {livro['autor']}"}
+        
+    raise HTTPException(status_code=404, detail="404 Not Found")
