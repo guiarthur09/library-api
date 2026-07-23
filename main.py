@@ -41,7 +41,7 @@ def home():
         "mensagem": "Bem-vindo à API da Biblioteca!"
     }
 
-@app.post("/books")
+@app.post("/books", response_model=Livro)
 def criar_livro(livro: LivroCreate):
 
     novo_id = len(livros) + 1
@@ -67,5 +67,13 @@ def buscar_livro(id: int):
         if livro["id"] == id:
             return livro
     raise HTTPException(status_code=404, detail="404 Not Found")
-        
-        
+
+@app.put("/books/{id}", response_model=Livro)
+def atualizar_livro(id: int, livro_atualizado: LivroCreate):
+    for livro in livros:
+        if livro["id"] == id:
+            livro["titulo"] = livro_atualizado.titulo
+            livro["autor"] = livro_atualizado.autor
+            return livro
+
+    raise HTTPException(status_code=404, detail="404 Not Found")
